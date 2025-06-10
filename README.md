@@ -31,7 +31,7 @@ Username=admin
 Password:- randomly generated, password shown in /config/supervisord.log
 Now you can go to URL:<br />
 http://localhost:8080<br />
-and log on using details provided in container logs.<br />
+and log on using username and password.
 Go to Tools - Options - WebUI - change the user and password and tick 'bypass authentication for clients on localhost' .<br />
 
 Then configure Prowlarr service (each of these services will require to set up user/pass):<br />
