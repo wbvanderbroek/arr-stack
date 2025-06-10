@@ -156,27 +156,36 @@ services:
 # ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║   
 # ██║▄▄ ██║██╔══██╗██║   ██║      ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║╚██╗██║   ██║   
 # ╚██████╔╝██████╔╝██║   ██║      ██║   ╚██████╔╝██║  ██║██║  ██║███████╗██║ ╚████║   ██║   
-#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                                                                                          
+#  ╚══▀▀═╝ ╚═════╝ ╚═╝   ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝                                                                                                                                                                                
                                                                                              
-  qbittorrent:
-    image: linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    hostname: qbittorrent
-    restart: unless-stopped
-    labels:
-      - "com.centurylinklabs.watchtower.enable=false"
+  qbittorrentvpn:
+    image: binhex/arch-qbittorrentvpn
+    container_name: qbittorrentvpn
+    privileged: true
+    cap_add:
+    - NET_ADMIN
+    - SYS_MODULE
+    environment:
+      - VPN_ENABLED=yes
+      - VPN_USER=changeme
+      - VPN_PASS=changeme
+      - VPN_PROV=custom
+      - VPN_CLIENT=openvpn
+      - LAN_NETWORK=192.168.2.0/24
+      - NAME_SERVERS=10.2.0.1,1.1.1.1,1.0.0.1
+      - UMASK=002
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
     volumes:
       - ${ARRPATH}qbittorrent/config:/config
       - ${ARRPATH}Downloads:/downloads
+      - ./protonvpn-configs:/config/openvpn
     ports:
       - 8080:8080
       - 6881:6881
       - 6881:6881/udp
-    environment:
-      - WEBUI_PORT=8080
-      - TORRENTING_PORT=6881
     healthcheck:
       start_period: 15s
     env_file:
       - '.env'
-
+    restart: unless-stopped
