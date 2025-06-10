@@ -27,9 +27,8 @@ First configure the qBittorrent service because its using temporary password onl
 **qBittorrent:**<br />
 Check logs for qbittorrent container:<br />
 `sudo docker logs qbittorrent`<br />
-You will see in the logs something like:<br />
-*The WebUI administrator username is: admin<br />
-The WebUI administrator password was not set. A temporary password is provided for this session: <your-password-will-be-here>* <br />
+Username=admin
+Password:- randomly generated, password shown in /config/supervisord.log
 Now you can go to URL:<br />
 http://localhost:8080<br />
 and log on using details provided in container logs.<br />
