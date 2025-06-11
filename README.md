@@ -33,6 +33,8 @@ Now you can go to URL:<br />
 http://localhost:8080<br />
 and log on using username and password.
 Go to Tools - Options - WebUI - change the user and password and tick 'bypass authentication for clients on localhost' .<br />
+Go to Tools - Options - Downloads - change default save path to /downloads and keep incomplete torrents in /downloads/temp .<br />
+
 
 Then configure Prowlarr service (each of these services will require to set up user/pass):<br />
 
